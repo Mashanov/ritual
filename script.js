@@ -26,8 +26,8 @@ function openBackground (p = false, text = false)
 
 var array_logo_img = [
 
-	'https://i.siteapi.org/4ysbA_QLr57vSy-mKhb8R8pRmZA=/0x0:1000x288/d13dcccfc99e3f5.s.siteapi.org/img/qm8kvgdcsu80kgw4oo4kksc8o8k4gw',
-	'https://dezinfo.net/wp-content/uploads/2020/10/funeral_flowers-56a274ec5f9b58b7d0cabeac1.jpg'
+	'https://sun9-51.userapi.com/impg/yiF2MTzWuVfPcXcLovGSZIjuO17g3odhsvPTpg/a7Dw4A8s42Q.jpg?size=1000x288&quality=96&sign=d61a80c8ed7b036b4d41ba189ab740e1&type=album',
+	'https://sun9-20.userapi.com/impg/9E3IC7UG4HOrGsEF3uSJjZcRZXDZcAQZKxjb1A/0tUGsrWm4Mo.jpg?size=1881x1411&quality=96&sign=3be86b287114519c3cd4af6b1a5e9649&type=album'
 
 ],
 
