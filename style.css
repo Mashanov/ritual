@@ -294,6 +294,17 @@ font-size: 105%;
 line-height: 30px;
 }
 
+#right-shop {
+position: relative;
+width: 50%;
+float: right;
+}
+
+#left-shop {
+position: relative;
+width: 50%;
+}
+
 @font-face {
 font-family: "sh";
 src: url(sh.ttf) format("truetype");
