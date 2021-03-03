@@ -330,6 +330,12 @@ position: relative;
 width: fit-content;
 margin: 0;
 display: inline-block;
+margin-bottom: 40px;
+}
+
+.shop-price {
+text-align: center;
+color: var(--fill);
 }
 
 @font-face {
