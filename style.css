@@ -305,6 +305,15 @@ position: relative;
 width: 50%;
 }
 
+.shop-category {
+position: relative;
+width: 100%;
+height: 40px;
+line-height: 40px;
+box-sizing: border-box;
+padding-left: 20px;
+}
+
 @font-face {
 font-family: "sh";
 src: url(sh.ttf) format("truetype");
