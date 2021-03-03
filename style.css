@@ -296,13 +296,13 @@ line-height: 30px;
 
 #right-shop {
 position: relative;
-width: 50%;
+width: 55%;
 float: right;
 }
 
 #left-shop {
 position: relative;
-width: 50%;
+width: 40%;
 border: var(--border);
 box-sizing: border-box;
 display: inline-block;
