@@ -188,11 +188,11 @@ border-bottom: 2px solid #fff;
 padding-bottom: 5px;
 }
 
-.block-lr > .menu-element {
+.block-lr:not([style]) > .menu-element {
 cursor: pointer;
 }
 
-.block-lr > .menu-element:hover {
+.block-lr:not([style]) > .menu-element:hover {
 color: var(--color);
 border-bottom: 2px solid var(--color);
 }
@@ -292,98 +292,6 @@ top: 40px;
 width: 550px;
 font-size: 105%;
 line-height: 30px;
-}
-
-
-
-
-
-
-
-/* SHOOOOOOOP */
-.content {
-position: relative;
-height: 100%;
-box-sizing: border-box;
-float: left;
-overflow-x: hidden;
-overflow-y: auto;
-}
-
-#basket {
-width: 350px;
-}
-
-#shop {
-width: calc(100% - 350px);
-border-right: 1px solid var(--white_blue);
-}
-
-.element-basket {
-position: relative;
-width: 100%;
-padding: 20px;
-top: 20px;
-border-bottom: 1px solid var(--white_blue);
-box-sizing: border-box;
-}
-
-.white-voice {
-width: 200px;
-line-height: 20px;
-padding: 20px;
-border: 1px solid var(--white_blue);
-position: relative;
-display: inline-block;
-}
-
-.voice-img {
-width: 200px;
-height: 200px;
-position: relative;
-object-fit: contain;
-object-position: 50%;
-}
-
-.white-voice svg {
-position: absolute;
-width: 30px;
-height: 30px;
-right: 20px;
-border: var(--border);
-box-sizing: border-box;
-padding: 5px;
-bottom: 20px;
-fill: var(--fill);
-cursor: pointer;
-}
-
-.white-voice svg[data-voice] {
-background: var(--color);
-fill: #fff;
-}
-
-.basket-price {
-color: var(--fill);
-}
-
-#result {
-position: relative;
-color: var(--text);
-font-size: 130%;
-left: 10px;
-}
-
-#arrange {
-position: relative;
-width: 120px;
-height: 40px;
-background: var(--text);
-color: #fff;
-}
-
-.p[data-p] {
-padding-bottom: 10px;
 }
 
 @font-face {
