@@ -325,6 +325,12 @@ width: 100px;
 height: 100px;
 }
 
+.shop-element {
+position: relative;
+width: fit-content;
+margin: 0;
+}
+
 @font-face {
 font-family: "sh";
 src: url(sh.ttf) format("truetype");
