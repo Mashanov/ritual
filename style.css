@@ -298,6 +298,8 @@ line-height: 30px;
 position: relative;
 width: 55%;
 float: right;
+max-height: 200px;
+overflow-x: auto;
 }
 
 #left-shop {
@@ -315,6 +317,7 @@ height: 35px;
 line-height: 35px;
 box-sizing: border-box;
 padding-left: 20px;
+cursor: pointer;
 }
 
 .shop-img {
