@@ -1,29 +1,3 @@
-function openBackground (p = false, text = false)
-{
-
-	it('body').css({overflowY: 'hidden'});
-
-	it('body').append(
-
-		`<div id="background">
-			<div id="white-block">
-				<div class="p">` + p + `</div>
-				<div id="close">✕</div>
-
-				<div id="text">` + text + `</div>
-			</div>
-		</div>`
-
-	, 'конец');
-
-	it('#close').click(function ()
-	{
-
-		it('#background').kill();
-		it('body').at('del', 'style');
-	});
-};
-
 var array_logo_img = [
 
 	'https://sun9-51.userapi.com/impg/yiF2MTzWuVfPcXcLovGSZIjuO17g3odhsvPTpg/a7Dw4A8s42Q.jpg?size=1000x288&quality=96&sign=d61a80c8ed7b036b4d41ba189ab740e1&type=album',
