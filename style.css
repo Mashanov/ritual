@@ -134,9 +134,10 @@ color: #fff;
 font-size: 160%;
 left: 0;
 right: 0;
-top: 100px;
+top: 120px;
 margin: 0px auto;
 width: fit-content;
+text-shadow: #000 1px 1px 5px;
 }
 
 .right-button-head {
