@@ -173,15 +173,6 @@ border-bottom: 2px solid #fff;
 padding-bottom: 5px;
 }
 
-.block-lr:not([style]) > .menu-element {
-cursor: pointer;
-}
-
-.block-lr:not([style]) > .menu-element:hover {
-color: var(--color);
-border-bottom: 2px solid var(--color);
-}
-
 .block-price {
 position: relative;
 width: calc(33.33333% - 12.5px);
