@@ -274,7 +274,26 @@ line-height: 30px;
 @media screen and (max-width: 600px){
 
 	.right-button-head {
-  display: none;
+	display: none;
+	}
+}
+
+@media screen and (max-width: 850px){
+
+	#img-right-agent-block {
+	display: none;
+	}
+	
+	#text-info-agent {
+	width: calc(100% - 90px);
+	position: relative;
+	max-width: 100%;
+	display: block;
+	padding-bottom: 80px;
+	}
+	
+	#info-agent-block {
+	height: auto;
 	}
 }
 
