@@ -6,6 +6,13 @@
 --white_blue: rgb(245 245 245);
 }
 
+@media screen and (max-width: 770px){
+	
+	.block-price {
+	width: 100%;
+	}
+}
+
 body {
 margin: 0;
 padding: 0;
@@ -332,13 +339,6 @@ line-height: 30px;
 	}
 	
 	.block-price:nth-child(3) {
-	width: 100%;
-	}
-}
-
-@media screen and (max-width: 770px){
-	
-	.block-price {
 	width: 100%;
 	}
 }
