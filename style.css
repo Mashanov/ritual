@@ -265,7 +265,8 @@ background-image: url(https://sun9-29.userapi.com/impg/dbgxCEcRC88vfBH0t9Tcovx-I
 position: absolute;
 left: 30px;
 top: 40px;
-width: 550px;
+width: calc(100% - 430px);
+max-width: 550px;
 font-size: 105%;
 line-height: 30px;
 }
