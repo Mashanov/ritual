@@ -320,6 +320,13 @@ line-height: 30px;
 	}
 }
 
+@media screen and (max-width: 665px){
+	
+	.block-lr {
+	width: 100%;
+	}
+}
+
 @font-face {
 font-family: "sh";
 src: url(sh.ttf) format("truetype");
