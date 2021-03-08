@@ -184,6 +184,11 @@ box-sizing: border-box;
 border: var(--border);
 }
 
+.block-price:nth-child(2) {
+width: calc(33% - 25px);
+margin-right: 25px
+}
+
 .price {
 position: relative;
 font-size: 160%;
@@ -323,6 +328,13 @@ line-height: 30px;
 @media screen and (max-width: 665px){
 	
 	.block-lr {
+	width: 100%;
+	}
+}
+
+@media screen and (max-width: 770px){
+	
+	.block-price {
 	width: 100%;
 	}
 }
