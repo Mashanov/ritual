@@ -297,6 +297,28 @@ line-height: 30px;
 	}
 }
 
+@media screen and (max-width: 700px){
+	
+	#img-logo {
+	height: 300px;
+	}
+	
+	.black-button {
+	display: none;
+	}
+}
+
+@media screen and (max-width: 500px){
+	
+	#img-logo {
+	height: 250px;
+	}
+	
+	#offer {
+	top: 100px;
+	}
+}
+
 @font-face {
 font-family: "sh";
 src: url(sh.ttf) format("truetype");
