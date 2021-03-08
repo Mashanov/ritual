@@ -139,22 +139,6 @@ margin: 0px auto;
 width: fit-content;
 }
 
-#read-offer {
-background: #fff;
-width: 130px;
-height: 40px;
-color: var(--text);
-position: absolute;
-left: 0;
-right: 0;
-margin: 0 auto;
-bottom: 120px;
-}
-
-#read-offer:hover {
-background: var(--white_blue);
-}
-
 .right-button-head {
 position: relative;
 float: right;
