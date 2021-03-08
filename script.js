@@ -30,13 +30,6 @@ var array_logo_img = [
 	'https://sun9-20.userapi.com/impg/9E3IC7UG4HOrGsEF3uSJjZcRZXDZcAQZKxjb1A/0tUGsrWm4Mo.jpg?size=1881x1411&quality=96&sign=3be86b287114519c3cd4af6b1a5e9649&type=album'
 
 ],
-
-array_logo_text = [
-
-	'Как происходит церемония прощания',
-	'Что делать если умер близкий человек'
-
-],
 i_logo = 1,
 logo_time = new Date () / 1000 | 0;
 
@@ -52,7 +45,6 @@ setInterval (function ()
 		else i_logo++;
 
 		it('#img-logo').css({backgroundImage: 'url(' + array_logo_img[i_logo] + ')'});
-		it('#offer').html(array_logo_text[i_logo]);
 	};
 
 }, 300);
