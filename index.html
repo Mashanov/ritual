@@ -116,27 +116,6 @@
     </div>
 </div>
 
-<script>
-
-    $(window).resize(function() {    
-	  var t477_doResize = $('#rec330792937').data('resize-timeout');
-	  if (t477_doResize) {clearTimeout(t477_doResize)};
-	  t477_doResize = setTimeout(function() {
-	    t477_setHeight('330792937');
-	  }, 500);
-	  $('#rec330792937').data('resize-timeout', t477_doResize);
-	});
-    $(document).ready(function() {
-        t477_setHeight('330792937');
-        
-        $('.t477').bind('displayChanged',function(){
-          t477_setHeight('330792937', '560px');
-        });
-    });                        
-
-</script>
-
-
 </div>
 
 
@@ -240,33 +219,6 @@
                     </div>
                     </div>
 </div>
-
-<script type="text/javascript">
-
-
-$(document).ready(function() {
-  t412_init('330890966');
-  t412_unifyHeights('330890966');
-  setTimeout(function(){
-    t412_unifyHeights('330890966');
-  }, 500);
-  
-});
-  
-$('.t412').bind('displayChanged',function(){
-  t412_unifyHeights('330890966');
-});
-
-$(window).resize(function() {
-  t412_unifyHeights('330890966');
-});
-  
-$(window).load(function() {
-  t412_unifyHeights('330890966');
-});
-
-
-</script>
           
           
 </div>
