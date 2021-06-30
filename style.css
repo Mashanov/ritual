@@ -139,7 +139,7 @@ div,img,p,span{margin:0;padding:0;border:0;}
 .t102__descr{padding:0 120px;}
 }
 @media screen and (max-width:640px){
-.t102__title{font-size:34px;line-height:38px;margin-top:30px;}
+.t102__title{font-size:34px;line-height:50px;margin-top:30px;}
 .t102__descr{padding:0 10px;}
 }
 .t017__uptitle{padding-top:3px;padding-bottom:22px;}
