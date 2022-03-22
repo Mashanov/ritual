@@ -11,9 +11,7 @@ var DateList = {
 10: 'октября',
 11: 'ноября',
 12: 'декабря',
-},
-second = 30,
-day = 30;
+};
 
 function test (){
 
@@ -63,3 +61,5 @@ function test (){
     }
   }
 }
+
+test ();
