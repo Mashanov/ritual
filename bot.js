@@ -16,8 +16,11 @@ var DateList = {
 function test ()
 {
 
-  if (document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0] != null)
-  {
+  if (
+    
+    document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0] != null &&
+    document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('div.basic-section.basic-section--appearance-horizontal-card') != null
+  ){
     
     var urlMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').getAttribute('href');
     history.pushState(null, null, '/conversations' + urlMessage);
