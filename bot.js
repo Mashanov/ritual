@@ -22,51 +22,55 @@ function test ()
     document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('div.basic-section.basic-section--appearance-horizontal-card') != null
   ){
     
-    var urlMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').getAttribute('href');
-    history.pushState(null, null, '/conversations' + urlMessage);
-    document.querySelector('body').insertAdjacentHTML ('afterbegin', '<iframe src="/conversations' + urlMessage + '">');
-    var iframe = document.querySelector('iframe');
-    
-    function sendMess ()
-    {
-    
-      var textMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').innerText.split(' ')[0] + message;
+    try {
       
-      $.ajax (
-        {
-          method: 'post',
-          url: 'https://career.habr.com/api/frontend/conversations' + urlMessage + '/messages',
-          data: {body: textMessage}
-        }
-      );
+      var urlMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').getAttribute('href');
+      history.pushState(null, null, '/conversations' + urlMessage);
+      document.querySelector('body').insertAdjacentHTML ('afterbegin', '<iframe src="/conversations' + urlMessage + '">');
+      var iframe = document.querySelector('iframe');
 
-      console.log('Сообщение отправлено пользователю: ' + urlMessage);
-      document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
-      iframe.remove();
-      setTimeout(test, 30000);
-    }
-    
-    iframe.contentWindow.onload = function ()
-    {
-      
-      var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-      
-      if (innerDoc.querySelector('div.chat__date.chat--divider') == null) sendMess ();
-      else {
-      
-        var n = innerDoc.querySelectorAll('div.chat__date.chat--divider');
-        n = n[n.length - 1].innerText.split(' ');
-        
-        if ((new Date (n[2], (DateList[n[1]] - 1), n[0]) / 1000 + 5184000) <= (new Date () / 1000)) sendMess ();
+      function sendMess ()
+      {
+
+        var textMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').innerText.split(' ')[0] + message;
+
+        $.ajax (
+          {
+            method: 'post',
+            url: 'https://career.habr.com/api/frontend/conversations' + urlMessage + '/messages',
+            data: {body: textMessage}
+          }
+        );
+
+        console.log('Сообщение отправлено пользователю: ' + urlMessage);
+        document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
+        iframe.remove();
+        setTimeout(test, 30000);
+      }
+
+      iframe.contentWindow.onload = function ()
+      {
+
+        var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+        if (innerDoc.querySelector('div.chat__date.chat--divider') == null) sendMess ();
         else {
-        
-          console.log('Сообщение НЕ отправлено пользователю: ' + urlMessage + ' так как недавно с ним уже общались');
-          document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
-          iframe.remove();
-          test ();
+
+          var n = innerDoc.querySelectorAll('div.chat__date.chat--divider');
+          n = n[n.length - 1].innerText.split(' ');
+
+          if ((new Date (n[2], (DateList[n[1]] - 1), n[0]) / 1000 + 5184000) <= (new Date () / 1000)) sendMess ();
+          else {
+
+            console.log('Сообщение НЕ отправлено пользователю: ' + urlMessage + ' так как недавно с ним уже общались');
+            document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
+            iframe.remove();
+            test ();
+          }
         }
       }
-    }
+      
+    } catch (err){setTimeout(test, 5000)}
   
   } else {
     
