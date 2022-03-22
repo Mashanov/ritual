@@ -74,7 +74,7 @@ function test ()
     {
       
       document.querySelector('a[rel="next"]').click();
-      setTimeout(test, 15000);
+      setTimeout(test, 30000);
       console.log('Переключаюсь на другую страницу');
     }
   }
