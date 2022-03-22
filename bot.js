@@ -1,19 +1,20 @@
 var DateList = {
-1: 'января',
-2: 'февраля',
-3: 'марта',
-4: 'апреля',
-5: 'мая',
-6: 'июня',
-7: 'июля',
-8: 'августа',
-9: 'сентября',
-10: 'октября',
-11: 'ноября',
-12: 'декабря',
+'января': 1,
+'февраля': 2,
+'марта': 3,
+'апреля': 4,
+'мая': 5,
+'июня': 6,
+'июля': 7,
+'августа': 8,
+'сентября': 9,
+'октября': 10,
+'ноября': 11,
+'декабря': 12,
 };
 
-function test (){
+function test ()
+{
 
   if (document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0] != null)
   {
@@ -23,17 +24,9 @@ function test (){
     document.querySelector('body').insertAdjacentHTML ('afterbegin', '<iframe src="/conversations' + urlMessage + '">');
     var iframe = document.querySelector('iframe');
     
-    iframe.contentWindow.onload = function ()
+    function sendMess ()
     {
-      
-      var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-      
-      if (innerDoc.querySelector('div.chat__date.chat--divider'))
-      {
-      
-        123
-      }
-        
+    
       var textMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').innerText.split(' ')[0] + `, ТЕЕЕКСТОВОЕ СОООООБЩЕНИЕ`;
       
       $.ajax (
@@ -48,6 +41,21 @@ function test (){
       document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
       iframe.remove();
       setTimeout(test, 30000);
+    }
+    
+    iframe.contentWindow.onload = function ()
+    {
+      
+      var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+      
+      if (innerDoc.querySelector('div.chat__date.chat--divider') == null) sendMess ();
+      else {
+      
+        var n = innerDoc.querySelectorAll('div.chat__date.chat--divider');
+        n = n[n.length - 1].innerText.split(' ');
+        
+        if ((new Date (n[2], (DateList[n[1]] - 1), n[0]) / 1000 + 5184000) <= (new Date () / 1000)) sendMess ();
+      }
     }
   
   } else {
