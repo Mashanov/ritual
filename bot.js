@@ -12,7 +12,13 @@ function test (){
     {
       
       var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+      
       if (innerDoc.querySelector('div.chat__date.chat--divider'))
+      {
+      
+        123
+      }
+        
       var textMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').innerText.split(' ')[0] + `, ТЕЕЕКСТОВОЕ СОООООБЩЕНИЕ`;
       
       $.ajax (
@@ -39,5 +45,6 @@ function test (){
       console.log('Переключаюсь на другую страницу');
     }
   }
+}
 
-} test ();
+test ();
