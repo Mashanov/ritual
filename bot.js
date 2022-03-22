@@ -27,7 +27,7 @@ function test ()
     function sendMess ()
     {
     
-      var textMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').innerText.split(' ')[0] + `, ТЕЕЕКСТОВОЕ СОООООБЩЕНИЕ`;
+      var textMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').innerText.split(' ')[0] + message;
       
       $.ajax (
         {
@@ -55,6 +55,13 @@ function test ()
         n = n[n.length - 1].innerText.split(' ');
         
         if ((new Date (n[2], (DateList[n[1]] - 1), n[0]) / 1000 + 5184000) <= (new Date () / 1000)) sendMess ();
+        else {
+        
+          console.log('Сообщение НЕ отправлено пользователю: ' + urlMessage + ' так как недавно с ним уже общались');
+          document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
+          iframe.remove();
+          test ();
+        }
       }
     }
   
