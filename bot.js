@@ -26,6 +26,34 @@ function test ()
       
       var urlMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').getAttribute('href');
       
+    /* Фильтр по минимальной зарплате */
+      var wage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('div.basic-section.basic-section--appearance-horizontal-card .resume-card__offer span span span').innerText;
+      if (wage.substr(-1, 1) == '₽')
+      {
+
+          wage = Number(wage.split('От')[1].split('₽')[0].replace(/ /g,''));
+          if (minWage[0] > wage)
+          {
+
+              console.log('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', минимальная зарплата');
+              document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
+              setTimeout(test, 5000);
+              return null;
+          }
+        
+      } else if (wage.substr(-1, 1) == '$') {
+
+          wage = Number(wage.split('От')[1].split('$')[0].replace(/ /g,''));
+          if (minWage[1] > wage)
+          {
+
+              console.log('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', минимальная зарплата');
+              document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
+              setTimeout(test, 5000);
+              return null;
+          }
+      }
+      
     /* Проверяет список исключений, кому не нужно отправлять сообщение */
       for (var iban of ban)
       {
@@ -39,6 +67,7 @@ function test ()
           }
       }
       
+    /* Имитируем открытие страницы с сообщениями */
       history.pushState(null, null, '/conversations' + urlMessage);
       document.querySelector('body').insertAdjacentHTML ('afterbegin', '<iframe src="/conversations' + urlMessage + '">');
       var iframe = document.querySelector('iframe');
