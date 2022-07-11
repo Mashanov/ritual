@@ -22,6 +22,8 @@ function test ()
     document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('div.basic-section.basic-section--appearance-horizontal-card') != null
   ){
     
+    console.log('Бот нашел пользователя и начал смотреть его аккаунт');
+    
     try {
       
       var urlMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').getAttribute('href');
@@ -35,7 +37,7 @@ function test ()
           if (minWage[0] > wage)
           {
 
-              console.log('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', минимальная зарплата');
+              console.error('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', минимальная зарплата');
               document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
               setTimeout(test, 5000);
               return null;
@@ -47,12 +49,14 @@ function test ()
           if (minWage[1] > wage)
           {
 
-              console.log('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', минимальная зарплата');
+              console.error('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', минимальная зарплата');
               document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
               setTimeout(test, 5000);
               return null;
           }
       }
+
+      console.log('Зарплата больше заданных параметров, все хорошо');
       
     /* Проверяет список исключений, кому не нужно отправлять сообщение */
       for (var iban of ban)
@@ -60,12 +64,14 @@ function test ()
           if (iban == document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').innerText)
           {
 
-              console.log('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', так как вы его добавили в список исключений');
+              console.error('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', так как вы его добавили в список исключений');
               document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
               setTimeout(test, 5000);
               return null;
           }
       }
+
+      console.log('Пользователь не в черном списке, все хорошо');
       
     /* Проверка на страну и город */
       var userCityCheck = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelectorAll('.inline-align.inline-align--gap-small span')[1].innerText;
@@ -73,82 +79,111 @@ function test ()
         {
           method: 'get',
           url: 'https://career.habr.com/api/frontend/suggestions/locations?term=' + userCityCheck,
-          error: test,
+          error: function ()
+          {
+            console.error('При определении страны произошла ошибка, робот автоматически запущен заного');
+            test ()
+          },
           success: function (from)
           {
           
               if ( geoLocationBan.indexOf(from.list[0].subtitle.split(',')[0]) > -1 || geoLocationBan.indexOf(from.list[0].title) > -1 )
               {
                 
-                  console.log('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', город или страна в списке исключений');
+                  console.error('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', город или страна в списке исключений');
                   document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
                   setTimeout(test, 5000);
                   return null;
               }
-                
-                /* Имитируем открытие страницы с сообщениями */
-                  history.pushState(null, null, '/conversations' + urlMessage);
-                  document.querySelector('body').insertAdjacentHTML ('afterbegin', '<iframe src="/conversations' + urlMessage + '">');
-                  var iframe = document.querySelector('iframe');
+            
+              console.log('Пользователь прошел проверку на страну, все хорошо');
+            
+            /* Имитируем открытие страницы с сообщениями */
+              history.pushState(null, null, '/conversations' + urlMessage);
+              document.querySelector('body').insertAdjacentHTML ('afterbegin', '<iframe src="/conversations' + urlMessage + '">');
+              var iframe = document.querySelector('iframe');
 
-                  function sendMess ()
+              function sendMess ()
+              {
+
+                var textMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').innerText.split(' ')[0] + message;
+
+                $.ajax (
                   {
+                    method: 'post',
+                    url: 'https://career.habr.com/api/frontend/conversations' + urlMessage + '/messages',
+                    data: {body: textMessage},
+                    error: function ()
+                    {
+                      console.log('При отправке сообщения произошла ошибка, робот автоматически запущен заного');
+                      iframe.remove();
+                      test()
+                    },
+                    success: function ()
+                    {
 
-                    var textMessage = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelector('a.resume-card__title-link').innerText.split(' ')[0] + message;
-
-                    $.ajax (
-                      {
-                        method: 'post',
-                        url: 'https://career.habr.com/api/frontend/conversations' + urlMessage + '/messages',
-                        data: {body: textMessage},
-                        error: test,
-                        success: function ()
-                        {
-
-                            console.log('Сообщение отправлено пользователю: ' + urlMessage);
-                            document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
-                            iframe.remove();
-                            setTimeout(test, 30000);
-                        }
-                      }
-                    );
-                  }
-
-                  iframe.contentWindow.onload = function ()
-                  {
-
-                    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-                    if (innerDoc.querySelector('div.chat__date.chat--divider') == null) sendMess ();
-                    else {
-
-                      var n = innerDoc.querySelectorAll('div.chat__date.chat--divider');
-                      n = n[n.length - 1].innerText.split(' ');
-
-                      if ((new Date (n[2], (DateList[n[1]] - 1), n[0]) / 1000 + 5184000) <= (new Date () / 1000)) sendMess ();
-                      else {
-
-                        console.log('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', так как недавно с ним уже общались');
+                        console.log('Сообщение отправлено пользователю: ' + urlMessage);
                         document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
                         iframe.remove();
-                        test ();
-                      }
+                        setTimeout(test, 30000);
                     }
                   }
+                );
+              }
+
+              iframe.contentWindow.onload = function ()
+              {
+
+                console.log('Открылась вкладка с личными сообщения');
+                var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+                if (innerDoc.querySelector('div.chat__date.chat--divider') == null)
+                {
+                  
+                  console.log('Ранее переписки с пользователем не наблудается, пытаемся отправить сообщение');
+                  sendMess ();
+                  
+                } else {
+
+                  console.log('Ранее общались с этим пользователем, анализируем время переписки');
+                  var n = innerDoc.querySelectorAll('div.chat__date.chat--divider');
+                  n = n[n.length - 1].innerText.split(' ');
+
+                  if ((new Date (n[2], (DateList[n[1]] - 1), n[0]) / 1000 + 5184000) <= (new Date () / 1000))
+                  {
+                    
+                    console.log('Время впорядке, пытаемся отправить сообщение');
+                    sendMess ();
+                    
+                  } else {
+
+                    console.error('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', так как недавно с ним уже общались');
+                    document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
+                    iframe.remove();
+                    test ();
+                  }
+                }
+              }
           }
         }
       );
       
-    } catch (err){setTimeout(test, 5000)}
+    } catch (err){
+
+      console.error('Произошла неизвестная ошибка, через 5 секунд робот продолжит работу: ' + err);
+      setTimeout(test, 5000);
+    }
   
   } else {
+    
+    console.log('Бот НЕ смог найти пользователей на этой странице');
     
     if (document.querySelector('a[rel="next"]'))
     {
       
+      console.log('Переключаюсь на другую страницу');
       document.querySelector('a[rel="next"]').click();
       setTimeout(test, 30000);
-      console.log('Переключаюсь на другую страницу');
     }
   }
 }
