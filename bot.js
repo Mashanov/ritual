@@ -74,7 +74,15 @@ function test ()
       console.log('Пользователь не в черном списке, все хорошо');
       
     /* Проверка на страну и город */
-      var userCityCheck = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelectorAll('.inline-align.inline-align--gap-small span')[1].innerText;
+      if (!document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelectorAll('.inline-align.inline-align--gap-small span')[1] )
+      {
+         var userCityCheck = 'Москва';
+        
+      } else {
+      
+        var userCityCheck = document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].querySelectorAll('.inline-align.inline-align--gap-small span')[1].innerText;
+      }
+      
       $.ajax (
         {
           method: 'get',
@@ -86,18 +94,27 @@ function test ()
           },
           success: function (from)
           {
-          
-              if ( geoLocationBan.indexOf(from.list[0].subtitle.split(',')[0]) > -1 || geoLocationBan.indexOf(from.list[0].title) > -1 )
+
+              var geoLocationBan;
+              if (geoLocationBan == null)
               {
+              
+                console.log('Не задан параметр исключения по странам, бот продолжает работать');
                 
-                  console.error('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', город или страна в списке исключений');
-                  document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
-                  setTimeout(test, 5000);
-                  return null;
+              } else {
+                
+                if ( geoLocationBan.indexOf(from.list[0].subtitle.split(',')[0]) > -1 || geoLocationBan.indexOf(from.list[0].title) > -1 )
+                {
+
+                    console.error('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', город или страна в списке исключений');
+                    document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
+                    setTimeout(test, 5000);
+                    return null;
+                }
+                
+                console.log('Пользователь прошел проверку на страну, все хорошо');
               }
-            
-              console.log('Пользователь прошел проверку на страну, все хорошо');
-            
+
             /* Имитируем открытие страницы с сообщениями */
               history.pushState(null, null, '/conversations' + urlMessage);
               document.querySelector('body').insertAdjacentHTML ('afterbegin', '<iframe src="/conversations' + urlMessage + '">');
@@ -139,10 +156,10 @@ function test ()
 
                 if (innerDoc.querySelector('div.chat__date.chat--divider') == null)
                 {
-                  
+
                   console.log('Ранее переписки с пользователем не наблудается, пытаемся отправить сообщение');
                   sendMess ();
-                  
+
                 } else {
 
                   console.log('Ранее общались с этим пользователем, анализируем время переписки');
@@ -151,10 +168,10 @@ function test ()
 
                   if ((new Date (n[2], (DateList[n[1]] - 1), n[0]) / 1000 + 5184000) <= (new Date () / 1000))
                   {
-                    
+
                     console.log('Время впорядке, пытаемся отправить сообщение');
                     sendMess ();
-                    
+
                   } else {
 
                     console.error('Сообщение НЕ отправлено пользователю: ' + urlMessage + ', так как недавно с ним уже общались');
@@ -167,11 +184,13 @@ function test ()
           }
         }
       );
-      
+        
     } catch (err){
 
       console.error('Произошла неизвестная ошибка, через 5 секунд робот продолжит работу: ' + err);
+      document.querySelectorAll('div.section-group.section-group--gap-medium ')[3].querySelectorAll('div.section-box')[0].remove();
       setTimeout(test, 5000);
+      return null;
     }
   
   } else {
